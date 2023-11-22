@@ -6,7 +6,7 @@ import (
 )
 
 func makeSecureWebserver(namespace string, name string, imageStreamName string, imageStreamNamespace string, replicas int32, defaultIngressDomain string) *webserversv1alpha1.WebServer {
-	host := "hosttest-" + namespace + "."
+	host := "secureroutetest-" + namespace + ".apps."
 	return &webserversv1alpha1.WebServer{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       "WebServer",

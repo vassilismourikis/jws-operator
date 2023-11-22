@@ -91,7 +91,7 @@ test: manifests generate fmt vet envtest ## Run tests.
 	KUBEBUILDER_ASSETS="$(shell $(ENVTEST) use $(ENVTEST_K8S_VERSION) -p path)" go test ./... -coverprofile cover.out
 
 realtest: test
-	REALCLUSTER="YES" KUBEBUILDER_ASSETS="$(shell $(ENVTEST) use $(ENVTEST_K8S_VERSION) -p path)" go test -timeout 60m ./... -coverprofile cover.out
+	REALCLUSTER="YES" HOSTNAME="$(shell oc config view -o=jsonpath='{.clusters[0].cluster.server}' | sed -n 's|^https://api.\([^:/]\+\).*|\1|p')" KUBEBUILDER_ASSETS="$(shell $(ENVTEST) use $(ENVTEST_K8S_VERSION) -p path)" go test -timeout 60m ./... -coverprofile cover.out
 
 .PHONY: mod-vendor
 mod-vendor:
